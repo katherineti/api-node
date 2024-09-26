@@ -11,11 +11,17 @@ export const Server = class {
         this.port = process.env.PORT || 3000;
         this.usersPath = '/api/users'
 
+        this.database();
+
         //Middlewares
         this.middlewares();
 
         //Rutas de mi aplicacion
         this.routes();
+    }
+
+    async database(){
+        // await dbconecction()
     }
 
     middlewares(){
