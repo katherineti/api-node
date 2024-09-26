@@ -9,12 +9,12 @@ export const Server = class {
     constructor(){
         this.app = express();
         this.port = process.env.PORT || 3000;
+        this.usersPath = '/api/users'
 
         //Middlewares
         this.middlewares();
 
         //Rutas de mi aplicacion
-
         this.routes();
     }
 
@@ -27,7 +27,7 @@ export const Server = class {
     }
 
     routes(){
-        this.app.use( '/api/users', userRoutes )
+        this.app.use( this.usersPath, userRoutes )
     }
 
     listen(){

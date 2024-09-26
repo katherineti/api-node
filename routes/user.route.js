@@ -1,8 +1,16 @@
-// user.route.js
 import { Router } from 'express';
+import { UserController } from './../controllers/user.controller.js'; // Import the whole module
 
 const router = Router();
 
-// ... your route definitions
+router.get('/', UserController.get )
 
-export default router; // Add the default export
+router.post('/', UserController.post)
+
+router.put('/', UserController.put)
+
+router.patch('/', UserController.patch)
+
+router.delete('/', UserController.del)
+
+export default router;
