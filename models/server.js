@@ -22,6 +22,12 @@ export const Server = class {
         //CORS
         this.app.use( cors() )
 
+        //lectura y parseo del body
+        this.app.use(express.json())
+
+        //URL encoded
+        this.app.use(express.urlencoded({ extended: true }))
+
         //Directorio Publico
         this.app.use(express.static('public'));
     }

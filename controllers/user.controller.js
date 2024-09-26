@@ -1,20 +1,39 @@
-import { response } from "express"
+import { request, response } from "express"
 
-const get = async(req, res= response )  => {
+const getAll = async(req, res= response )  => {
     res.status(403).json({
         message: 'get API RESTful - Controller'
     })
 }
 
-const post = async(req, res= response) => {
+const get = async(req=request, res= response )  => {
+
+    const { name='No name' } = req.query;
+
     res.status(403).json({
-        message: 'post API RESTful - Controller'
+        message: 'get API RESTful - Controller',
+        name
+    })
+}
+
+const post = async(req, res= response) => {
+
+    const { name, age } = req.body
+
+    res.status(403).json({
+        message: 'post API RESTful - Controller',
+        name,
+        age
     })
 }
 
 const put = async(req, res= response) => {
+
+    const id = req.params.id;
+
     res.status(403).json({
-        message: 'put API RESTful - Controller'
+        message: 'put API RESTful - Controller',
+        id
     })
 }
 

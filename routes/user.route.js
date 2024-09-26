@@ -7,7 +7,7 @@ router.get('/', UserController.get )
 
 router.post('/', UserController.post)
 
-router.put('/', UserController.put)
+router.put('/:id', UserController.put)
 
 router.patch('/', UserController.patch)
 
