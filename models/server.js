@@ -1,8 +1,8 @@
 import express from "express"
 import cors from "cors"
 
-//file routes
-import {user} from '../routes/user.js'; 
+import { Router } from 'express'; // Import Router from express
+import userRoutes from './../routes/user.route.js'; // Import the whole module
 
 export const Server = class {
 
@@ -27,7 +27,7 @@ export const Server = class {
     }
 
     routes(){
-        this.app.use( '/api/users', user )
+        this.app.use( '/api/users', userRoutes )
     }
 
     listen(){
