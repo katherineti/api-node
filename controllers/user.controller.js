@@ -1,4 +1,9 @@
+//user.controller.js
 import { request, response } from "express"
+import 'dotenv/config'
+import {dbConecction} from '../database/config.db.js'
+
+ const db = dbConecction
 
 const getAll = async(req, res= response )  => {
     res.status(403).json({
@@ -8,12 +13,13 @@ const getAll = async(req, res= response )  => {
 
 const get = async(req=request, res= response )  => {
 
-    const { name='No name' } = req.query;
+    const { id } = req.query;
 
-    res.status(403).json({
-        message: 'get API RESTful - Controller',
-        name
-    })
+    const {rows} = await db.query('SELECT * FROM users WHERE id=$1', [id]);
+
+    if(rows.length === 0) return res.status(404).json({ message: 'User not found' })
+    
+    res.status(403).json(rows)
 }
 
 const post = async(req, res= response) => {
@@ -45,14 +51,22 @@ const patch = async(req, res) => {
 
 
 const del = async(req, res) => {
-    res.status(403).json({
-        message: 'delete API RESTful - Controller'
-    })
+
+    const id = req.params.id;
+
+    const {rows, rowCount} = await db.query('DELETE FROM users WHERE id=$1 RETURNING *', [id]); //despues de eliminar, retorna dichos acampos
+
+    if(rowCount === 0){
+        return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.json({ 
+        message: 'User deleted',
+        rows
+    });
 }
 
 export const UserController = {
-    // register,
-    // login,
     get,
     post,
     put,

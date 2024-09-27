@@ -11,6 +11,6 @@ router.put('/:id', UserController.put)
 
 router.patch('/', UserController.patch)
 
-router.delete('/', UserController.del)
+router.delete('/:id', UserController.del)
 
 export default router;
