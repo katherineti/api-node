@@ -5,11 +5,11 @@ const router = Router();
 
 router.get('/', UserController.get )
 
+router.get('/oneByid/', UserController.getById )
+
 router.post('/', UserController.post)
 
 router.put('/:id', UserController.put)
-
-router.patch('/', UserController.patch)
 
 router.delete('/:id', UserController.del)
 

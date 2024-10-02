@@ -3,6 +3,7 @@ import cors from "cors"
 
 import { Router } from 'express'; // Import Router from express
 import userRoutes from './../routes/user.route.js'; // Import the whole module
+import morgan from 'morgan'
 
 export const Server = class {
 
@@ -25,13 +26,16 @@ export const Server = class {
     }
 
     middlewares(){
-        //CORS
+        //Cors
         this.app.use( cors() )
 
-        //lectura y parseo del body
+        //Logs
+        this.app.use(morgan('dev'))
+
+        //Lectura y parseo del body
         this.app.use(express.json())
 
-        //URL encoded
+        //Url encoded
         this.app.use(express.urlencoded({ extended: true }))
 
         //Directorio Publico

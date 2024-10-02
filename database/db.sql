@@ -1,8 +1,8 @@
--- CREATE DATABASE firstapi;
+-- CREATE DATABASE katherine;
 
 -- \l
 
--- \c firstapi;
+-- \c katherine;
 
 DROP TABLE IF EXISTS users;
 
