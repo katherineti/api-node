@@ -45,10 +45,10 @@ const getById = async (req, res) => {
 
 const post = async(req, res= response) => {
 
-    const { name, email } = req.body
+    const { name, email, password } = req.body
 
       // Validate input
-    if (!name || !email) return res.status(400).json({ message: 'Missing required fields: name and email' });
+    if (!name || !email || !password) return res.status(400).json({ message: 'Missing required fields: name and email' });
 
     try {
         
@@ -56,8 +56,11 @@ const post = async(req, res= response) => {
         if (existUser.length > 0) {
           return res.status(409).json({ message: 'Email already exists' });
         }
+
+        const salt = bcryptjs.genSaltSync();
+        bcryptjs_password = bcryptjs.hashSync(password, salt)
         
-        const {rows} = await db.query('INSERT INTO users(name, email) VALUES ($1, $2) RETURNING *', [name, email]);
+        const {rows} = await db.query('INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETURNING *', [name, email, bcryptjs_password]);
     
         return res.status(201).json({
             ok:true,
@@ -93,7 +96,10 @@ const put = async(req, res= response) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        const {rows} = await db.query('UPDATE users SET name= $1, email= $2 WHERE id= $3 RETURNING *', [body.name, body.email, id]);
+        const salt = bcryptjs.genSaltSync();
+        bcryptjs_password = bcryptjs.hashSync(password, salt)
+
+        const {rows} = await db.query('UPDATE users SET name= $1, email= $2, password= $3 WHERE id= $4 RETURNING *', [body.name, body.email, bcryptjs_password , id]);
 
         return res.status(200).json({
             ok: true,
