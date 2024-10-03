@@ -4,12 +4,13 @@ import cors from "cors"
 import { Router } from 'express'; // Import Router from express
 import userRoutes from './../routes/user.route.js'; // Import the whole module
 import morgan from 'morgan'
+import { PORT } from "../const.js";
 
 export const Server = class {
 
     constructor(){
         this.app = express();
-        this.port = process.env.PORT || 3000;
+        this.port = PORT;
         this.usersPath = '/api/users'
 
         this.database();
