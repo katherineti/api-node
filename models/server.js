@@ -3,6 +3,7 @@ import cors from "cors"
 
 import { Router } from 'express'; // Import Router from express
 import userRoutes from './../routes/user.route.js'; // Import the whole module
+import authRoutes from './../routes/auth.route.js'; // Import the whole module
 import morgan from 'morgan'
 import { PORT } from "../const.js";
 
@@ -12,6 +13,7 @@ export const Server = class {
         this.app = express();
         this.port = PORT;
         this.usersPath = '/api/users'
+        this.authPath = '/api/auth'
 
         this.database();
 
@@ -44,6 +46,7 @@ export const Server = class {
     }
 
     routes(){
+        this.app.use( this.authPathPath, authRoutes )
         this.app.use( this.usersPath, userRoutes )
     }
 

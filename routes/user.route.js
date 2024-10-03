@@ -3,14 +3,14 @@ import { UserController } from './../controllers/user.controller.js'; // Import 
 
 const router = Router();
 
-router.get('/', UserController.get )
+router.get('/', UserController.get );
 
-router.get('/oneByid/', UserController.getById )
+router.get('/oneByid/', UserController.getById );
 
-router.post('/', UserController.post)
+router.post('/', UserController.post);
 
-router.put('/:id', UserController.put)
+router.put('/:id', UserController.put);
 
-router.delete('/:id', UserController.del)
+router.delete('/:id', UserController.del);
 
 export default router;
