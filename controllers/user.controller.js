@@ -2,6 +2,7 @@
 import { request, response } from "express"
 import 'dotenv/config'
 import {dbConecction} from '../database/config.db.js'
+import bcrypt from "bcrypt"
 
 const db = dbConecction
 
@@ -48,19 +49,20 @@ const post = async(req, res= response) => {
     const { name, email, password } = req.body
 
       // Validate input
-    if (!name || !email || !password) return res.status(400).json({ message: 'Missing required fields: name and email' });
+    if (!name || !email || !password) return res.status(400).json({ message: 'Missing required fields: name, email and password' });
 
     try {
-        
+      console.log(password)
         const { rows : existUser } = await db.query('SELECT * FROM users WHERE email = $1', [email]);
         if (existUser.length > 0) {
           return res.status(409).json({ message: 'Email already exists' });
         }
 
-        const salt = bcryptjs.genSaltSync();
-        bcryptjs_password = bcryptjs.hashSync(password, salt)
+        const saltRounds = 10;
+        const salt = bcrypt.genSaltSync(saltRounds);
+        const hash = bcrypt.hashSync(password, salt);
         
-        const {rows} = await db.query('INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETURNING *', [name, email, bcryptjs_password]);
+        const {rows} = await db.query('INSERT INTO users(name, email, password) VALUES ($1, $2, $3) RETURNING *', [name, email, hash]);
     
         return res.status(201).json({
             ok:true,

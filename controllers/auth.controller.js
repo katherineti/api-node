@@ -8,8 +8,8 @@ const login = async(req, res= response) => {
 
     const { email, password } = req.body
 
-      // Validate input
-    if (!email || !password) return res.status(400).json({ message: 'Missing required fields: email and password' });
+     // Validate input
+     if (!email || !password) return res.status(400).json({ message: 'Missing required fields: email and password' });
 
     try {
         

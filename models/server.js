@@ -6,6 +6,7 @@ import userRoutes from './../routes/user.route.js'; // Import the whole module
 import authRoutes from './../routes/auth.route.js'; // Import the whole module
 import morgan from 'morgan'
 import { PORT } from "../const.js";
+import bcrypt from "bcrypt"
 
 export const Server = class {
 
@@ -46,7 +47,7 @@ export const Server = class {
     }
 
     routes(){
-        this.app.use( this.authPathPath, authRoutes )
+        this.app.use( this.authPath, authRoutes )
         this.app.use( this.usersPath, userRoutes )
     }
 
