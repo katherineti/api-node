@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     email TEXT NOT NULL UNIQUE,
-signupsignup    password VARCHAR(255) NOT NULL,
+    signupsignup password VARCHAR(255) NOT NULL,
     name VARCHAR(40),
     lastname VARCHAR(40),
     gender VARCHAR(10) CHECK (gender IN ('male', 'female')),

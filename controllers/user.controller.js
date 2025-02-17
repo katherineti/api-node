@@ -48,14 +48,13 @@ const post = async(req, res= response) => {
 
     const { name, email, password } = req.body
 
-      // Validate input
-    if (!name || !email || !password) return res.status(400).json({ message: 'Missing required fields: name, email and password' });
+    if (!name || !email || !password) return res.status(400).json({ message: 'Missing required fields: name, email or password' });
 
     try {
-      console.log(password)
+   
         const { rows : existUser } = await db.query('SELECT * FROM users WHERE email = $1', [email]);
         if (existUser.length > 0) {
-          return res.status(409).json({ message: 'Email already exists' });
+          return res.status(409).json({ message: 'User already exists' });
         }
 
         const saltRounds = 10;
